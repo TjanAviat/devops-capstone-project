@@ -148,18 +148,6 @@ class TestAccountService(TestCase):
 
     def test_update_account(self):
         """It should update an account"""
-        new_account = AccountFactory()
-        account = self._create_accounts(1)[0]
-        resp = self.client.put(
-            f"{BASE_URL}/{account.id}", content_type="application/json",
-            json=new_account.serialize()
-        )
-        self.assertEqual(resp.status_code, status.HTTP_200_OK)
-        data = resp.get_json()
-        self.assertEqual(data["name"], new_account.name)
-
-    def test_update_account(self):
-        """It should update an account"""
         account = self._create_accounts(1)[0]
         resp = self.client.delete(
             f"{BASE_URL}/{account.id}", content_type="application/json"
@@ -181,7 +169,7 @@ class TestAccountService(TestCase):
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         headers = {
             'X-Frame-Options': 'SAMEORIGIN',
-            #'X-XSS-Protection': '1; mode=block', # Not supported anymore
+            # 'X-XSS-Protection': '1; mode=block', # Not supported anymore
             'X-Content-Type-Options': 'nosniff',
             'Content-Security-Policy': 'default-src \'self\'; object-src \'none\'',
             'Referrer-Policy': 'strict-origin-when-cross-origin'
